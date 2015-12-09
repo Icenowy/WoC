@@ -154,7 +154,7 @@ int main (int argc, char **argv)
 		SDL_Delay (delay);
 		SDL_Event ev;
 		while(SDL_PollEvent(&ev)) {
-			if(ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_ESCAPE) {
+			if(ev.type == SDL_KEYDOWN && ev.key.keysym.sym == SDLK_ESCAPE || ev.type == SDL_QUIT) {
 				exit = true;
 			}
 		}
