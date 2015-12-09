@@ -10,6 +10,10 @@
 - SP: Stack Pointer (ID 0x11) (Only the low 2 bytes are used) (pointer to last item)
 - INT: Interrupt Reason (ID 0x12) (Only the low 1 byte is used)
 
+## Interruptions
+
+- 0x0: Invalid instruction
+
 ## Instructions
 
 ### General Statements
@@ -57,6 +61,20 @@ STA REG @REG // Store data to memory address REG
 #### Binary Code
 
 JJJ00001 00000003 RRRRRRRR RRRRRRRR // STA REG @REG
+
+### Arithmetic Instructions
+
+#### Grammar
+
+ADD REG1 REG2 // Add REG2 to REG1
+
+SUB REG1 REG2 // Sub REG2 to REG1
+
+#### Binary Code
+
+JJJ00001 00000007 RRRRRRRR RRRRRRRR // ADD REG1 REG2
+
+JJJ00001 00000008 RRRRRRRR RRRRRRRR // SUB REG1 REG2
 
 ### Judgement Instructions
 
