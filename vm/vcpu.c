@@ -17,13 +17,14 @@ static inline void extract_reg (uint32_t instruction, uint8_t *reg1, uint8_t *re
 
 #define TWIREG_INS_END } while (0); goto normal_exit;
 
-#define COLOR_MEM(addr) if (mem_color) mem_color[addr] = cpu->color;
+#define COLOR_MEM_EXE(addr) if (mem_color) mem_color[addr] = cpu->color_exe;
+#define COLOR_MEM_ACC(addr) if (mem_color) mem_color[addr] = cpu->color_acc;
 
 _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 {
 	uint8_t interrupt_reason = 0;
 	uint32_t instruction = mem[cpu->registers[VCPU_REG_PC] & 0xFFFF];
-	COLOR_MEM (cpu->registers[VCPU_REG_PC] & 0xFFFF)
+	COLOR_MEM_EXE (cpu->registers[VCPU_REG_PC] & 0xFFFF)
 #ifndef NDEBUG
 	fprintf (stderr, "VCPU %p executed instruction %08x\n", cpu, instruction);
 #endif
@@ -60,13 +61,13 @@ _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 			// LDA REG @REG
 			TWIREG_INS_START
 			*preg1 = mem[ (*preg2) & 0xFFFF];
-			COLOR_MEM ( (*preg2) & 0xFFFF);
+			COLOR_MEM_ACC ( (*preg2) & 0xFFFF);
 			TWIREG_INS_END
 		case 0x00030000:
 			// STA REG @REG
 			TWIREG_INS_START
 			mem[ (*preg2) & 0xFFFF] = *preg1;
-			COLOR_MEM ( (*preg2) & 0xFFFF);
+			COLOR_MEM_ACC ( (*preg2) & 0xFFFF);
 			TWIREG_INS_END
 		case 0x00040000:
 			// EQU REG REG

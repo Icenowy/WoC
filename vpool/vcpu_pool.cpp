@@ -2,11 +2,12 @@
 
 #include <cstring>
 
-struct vcpu * vcpu_pool::add_vcpu (uint16_t pc, uint16_t sp, uint16_t int_pos, uint32_t color) {
+struct vcpu * vcpu_pool::add_vcpu (uint16_t pc, uint16_t sp, uint16_t int_pos, uint32_t color_acc, uint32_t color_exe) {
 	struct vcpu * vc = new struct vcpu;
 	std::memset (vc, 0, sizeof(struct vcpu));
 	vc->int_pos = int_pos;
-	vc->color = color;
+	vc->color_acc = color_acc;
+	vc->color_exe = color_exe;
 	vc->registers[VCPU_REG_PC] = pc;
 	vc->registers[VCPU_REG_SP] = sp;
 	pool.push_back(vc);

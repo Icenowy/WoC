@@ -20,7 +20,7 @@ extern "C" {
 struct vcpu {
 	uint32_t registers[0x100];
 	bool IN,SU; // flags
-	uint32_t color;
+	uint32_t color_acc, color_exe;
 	uint16_t int_pos, int_ret_pc;
 };
 

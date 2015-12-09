@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <sstream>
 
 #include "../vm/vcpu.h"
 #include "../vpool/vcpu_pool.h"
@@ -59,8 +60,8 @@ int main (int argc, char **argv)
 		pool->mem_color[pos_p2 + i] = 2;
 	}
 
-	vcpu *cpu_p1 = pool->add_vcpu (pos_p1, 0x2000, 0xE000, 1);
-	vcpu *cpu_p2 = pool->add_vcpu (pos_p2, 0xC000, 0x0000, 2);
+	vcpu *cpu_p1 = pool->add_vcpu (pos_p1, 0x2000, 0xE000, 1, 3);
+	vcpu *cpu_p2 = pool->add_vcpu (pos_p2, 0xC000, 0x0000, 2, 4);
 
 	if (SDL_VideoInit (NULL) < 0) {
 		std::cerr << "Unable to initialize SDL video." << std::endl;
@@ -80,21 +81,33 @@ int main (int argc, char **argv)
 	bool win = false;
 	bool exit = false;
 
+	char title[1001],title_prev[1001];
+
+	strcpy (title, TITLE);
+
 	do {
 		if (!win) {
 			for (int i = 0; i < 256; i++) {
 				for (int j = 0; j < 256; j++) {
+					uint8_t r, g, b;
 					switch(pool->mem_color[j * 256 + i]) {
 					case 1:
-						SDL_SetRenderDrawColor (renderer, 255, 0, 0, 0);
+						r = 255; g = 192; b = 192;
 						break;
 					case 2:
-						SDL_SetRenderDrawColor (renderer, 0, 0, 255, 0);
+						r = 192; g = 192; b = 255;
+						break;
+					case 3:
+						r = 255; g = 0; b = 0;
+						break;
+					case 4:
+						r = 0; g = 0; b = 255;
 						break;
 					default:
-						SDL_SetRenderDrawColor (renderer, 0, 0, 0, 0);
+						r = 255; g = 255; b = 255;
 						break;
 					}
+					SDL_SetRenderDrawColor (renderer, r, g, b, 0);
 					SDL_RenderDrawPoint (renderer, 2*i + 0, 2*j + 0);
 					SDL_RenderDrawPoint (renderer, 2*i + 1, 2*j + 0);
 					SDL_RenderDrawPoint (renderer, 2*i + 0, 2*j + 1);
@@ -106,13 +119,21 @@ int main (int argc, char **argv)
 
 			pool->nexti ();
 
+			strcpy (title_prev, title);
+			strcpy (title, TITLE);
+
+			if (cpu_p1->IN) strcat (title, " [P1 IN]");
+			if (cpu_p2->IN) strcat (title, " [P2 IN]");
+
+			if (strcmp (title, title_prev)) SDL_SetWindowTitle (mainWindow, title);
+
 			std::vector<vcpu *>::iterator beg = pool->pool.begin(), en = pool->pool.end();
 
-			if( std::find (beg, en, cpu_p1) == en) {
+			if (std::find (beg, en, cpu_p1) == en) {
 				std::cerr << "Player 2 wins!" << std::endl;
 				win = true;
 			}
-			if( std::find (beg, en, cpu_p2) == en) {
+			if (std::find (beg, en, cpu_p2) == en) {
 				std::cerr << "Player 1 wins!" << std::endl;
 				win = true;
 			}
