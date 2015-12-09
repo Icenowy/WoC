@@ -15,7 +15,7 @@ static inline void extract_reg (uint32_t instruction, uint8_t *reg1, uint8_t *re
 
 #define COLOR_MEM(addr) if (mem_color) mem_color[addr] = cpu->color;
 
-int vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
+_Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 {
 	uint8_t interrupt_reason = 0;
 	uint32_t instruction = mem[cpu->registers[VCPU_REG_PC] & 0xFFFF];
