@@ -138,6 +138,13 @@ int main()
 	while(true) {
 		string s1, s2, s3;
 		cin >> s1 >> s2 >> s3;
+		if(s1 == "#") {
+			cin >> s1;
+			while (s1 != "#") {
+				cin >> s1;
+			}
+			cin >> s1 >> s2 >> s3;
+		}
 		s1 = stoupper (s1);
 		s2 = stoupper (s2);
 		s3 = stoupper (s3);
