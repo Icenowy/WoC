@@ -17,6 +17,7 @@ struct vcpu_pool
 		std::memset (mem_color,0,sizeof (mem_color));
 	}
 
-	void add_vcpu (uint16_t int_pos, uint32_t color);
+	struct vcpu * add_vcpu (uint16_t pc, uint16_t sp, uint16_t int_pos, uint32_t color);
+	void nexti ();
 };
 #endif
