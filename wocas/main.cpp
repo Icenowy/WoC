@@ -61,7 +61,7 @@ uint32_t gen_instruction (string s1, string s2, string s3)
 	if (s1 == "LDA") {
 		if (s3[0] == '%') {
 			// LDA REG %NUM
-			uint32_t num = stoul (s3.substr (1));
+			uint32_t num = strtoul (s3.substr (1).c_str (), NULL, 0);
 			reg r;
 			TRY
 				r = s2reg (s2);
@@ -107,7 +107,7 @@ uint32_t gen_instruction (string s1, string s2, string s3)
 	TWIREG_INS(LTT, 0x01060000)
 	else if (s1 == "INT") {
 		if (s2[0] == '%') {
-			uint32_t num = stoul (s2.substr (1));
+			uint32_t num = strtoul (s3.substr (1).c_str (), NULL, 0);
 			return ( 0x01010200 | (condition << 29) | (num & 0xFF) );
 		}
 		else {
