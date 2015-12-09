@@ -111,6 +111,7 @@ interrupt:
 	if (cpu->IN) return 0;
 	cpu->int_ret_pc = (uint16_t) (cpu->registers[VCPU_REG_PC] & 0xFFFF);
 	cpu->registers[VCPU_REG_PC] = cpu->int_pos;
+	cpu->registers[VCPU_REG_INT] = interrupt_reason;
 	cpu->IN = 1;
 	return 1;
 }
