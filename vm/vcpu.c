@@ -1,5 +1,9 @@
 #include "vcpu.h"
 
+#ifndef NDEBUG
+#include <stdio.h>
+#endif
+
 static inline void extract_reg (uint32_t instruction, uint8_t *reg1, uint8_t *reg2)
 {
 	*reg1 = (uint8_t) ( (instruction & 0x0000FF00) >> 8);
@@ -11,7 +15,7 @@ static inline void extract_reg (uint32_t instruction, uint8_t *reg1, uint8_t *re
 	extract_reg (instruction, &reg1, &reg2); \
 	uint32_t *preg1 = cpu->registers + reg1, *preg2 = cpu->registers + reg2;
 
-#define TWIREG_INS_END } while (0);
+#define TWIREG_INS_END } while (0); goto normal_exit;
 
 #define COLOR_MEM(addr) if (mem_color) mem_color[addr] = cpu->color;
 
@@ -20,6 +24,9 @@ _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 	uint8_t interrupt_reason = 0;
 	uint32_t instruction = mem[cpu->registers[VCPU_REG_PC] & 0xFFFF];
 	COLOR_MEM (cpu->registers[VCPU_REG_PC] & 0xFFFF)
+#ifndef NDEBUG
+	fprintf (stderr, "VCPU %p executed instruction %08x\n", cpu, instruction);
+#endif
 	switch (instruction >> 29) {
 	case 0:
 		break;
