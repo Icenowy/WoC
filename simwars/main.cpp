@@ -50,6 +50,13 @@ int main (int argc, char **argv)
 	size_t pos_p1 = 0x4000 + std::rand() % (0x4000 - sp1 + 1);
 	size_t pos_p2 = 0x8000 + std::rand() % (0x4000 - sp2 + 1);
 
+	if ( getenv("WOC_POS_P1") != NULL) {
+		pos_p1 = atoi(getenv("WOC_POS_P1"));
+	}
+	if ( getenv("WOC_POS_P2") != NULL) {
+		pos_p2 = atoi(getenv("WOC_POS_P2"));
+	}
+
 	for(size_t i = 0; i < sp1; i++) {
 		pool->mem[pos_p1 + i] = p1[i];
 		pool->mem_color[pos_p1 + i] = 1;
@@ -131,10 +138,16 @@ int main (int argc, char **argv)
 
 			if (std::find (beg, en, cpu_p1) == en) {
 				std::cerr << "Player 2 wins!" << std::endl;
+				strcpy (title, TITLE);
+				strcat (title, " Player 2 wins!");
+				SDL_SetWindowTitle (mainWindow, title);
 				win = true;
 			}
 			if (std::find (beg, en, cpu_p2) == en) {
 				std::cerr << "Player 1 wins!" << std::endl;
+				strcpy (title, TITLE);
+				strcat (title, " Player 1 wins!");
+				SDL_SetWindowTitle (mainWindow, title);
 				win = true;
 			}
 		}

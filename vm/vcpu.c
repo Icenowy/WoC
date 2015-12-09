@@ -94,7 +94,17 @@ _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 			TWIREG_INS_START
 			*preg1 -= *preg2;
 			TWIREG_INS_END
-		case 0x00010000:
+		case 0x00090000:
+			// LSH REG REG
+			TWIREG_INS_START
+			*preg1 <<= *preg2;
+			TWIREG_INS_END
+		case 0x000A0000:
+			// RSH REG REG
+			TWIREG_INS_START
+			*preg1 >>= *preg2;
+			TWIREG_INS_END
+			case 0x00010000:
 			switch (instruction & 0x0000FF00) {
 			case 0x0000000:
 				goto normal_exit;
