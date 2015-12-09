@@ -1,0 +1,3 @@
+LDA R0 %2
+SUB PC R0
+END . .

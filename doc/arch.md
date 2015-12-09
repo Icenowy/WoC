@@ -98,7 +98,7 @@ JJJ00001 00000110 RRRRRRRR RRRRRRRR // LTT REG1 REG2
 
 #### Grammar
 
-INT NUM * // Interrupt with reason NUM (NUM must be at most 8 bits wide)
+INT %NUM * // Interrupt with reason NUM (NUM must be at most 8 bits wide)
 
 INT REG * // Interrupt with reason REG (only the low 1 byte is used)
 
