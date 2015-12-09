@@ -36,6 +36,9 @@ _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 	case 2:
 		if(cpu->SU) break;
 		goto normal_exit;
+	case 3:
+		if(!cpu->SU) break;
+		goto normal_exit;
 	default:
 		goto invalid_ins;
 	}

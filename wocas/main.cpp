@@ -9,6 +9,7 @@
 #define CONDITION_0 0x0
 #define CONDITION_IN 0x1
 #define CONDITION_SU 0x2
+#define CONDITION_NS 0x3
 
 using namespace std;
 
@@ -51,6 +52,7 @@ uint32_t gen_instruction (string s1, string s2, string s3)
 		s1 = s1.substr (0,3);
 		if (scond == "IN") condition = CONDITION_IN;
 		else if (scond == "SU") condition = CONDITION_SU;
+		else if (scond == "NS") condition = CONDITION_NS;
 		else goto invalid;
 	}
 #ifndef NDEBUF

@@ -21,6 +21,7 @@
 #### 000: (No Name) Always Execute
 #### 001: IN Execute if in Interrupted mode
 #### 010: SU Execure if last judgement instruction succeeded
+#### 011: NS Execure if last judgement instruction didn't succeed
 
 ### NOP: No operation
 
