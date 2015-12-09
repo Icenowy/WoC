@@ -62,8 +62,8 @@ _Bool vcpu_execute (struct vcpu *cpu, uint32_t *mem, uint32_t *mem_color)
 		case 0x00030000:
 			// STA REG @REG
 			TWIREG_INS_START
-			mem[ (*preg1) & 0xFFFF] = *preg2;
-			COLOR_MEM ( (*preg1) & 0xFFFF);
+			mem[ (*preg2) & 0xFFFF] = *preg1;
+			COLOR_MEM ( (*preg2) & 0xFFFF);
 			TWIREG_INS_END
 		case 0x00040000:
 			// EQU REG REG
