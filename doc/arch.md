@@ -39,6 +39,7 @@ JJJ00001 00000001 00000000 XXXXXXXX (Acceptable format 3)
 #### Grammar
 
 LDA REG %NUM // Let the value of REG be NUM (NUM must have at most 16 bits.)
+
 LDA REG @REG // Access data at memory address REG
 
 #### Binary Code
@@ -62,7 +63,9 @@ JJJ00001 00000003 RRRRRRRR RRRRRRRR // STA REG @REG
 #### Grammar
 
 EQU REG1 REG2 // Success if REG1 == REG2
+
 BGT REG1 REG2 // Success if REG1 > REG2
+
 LTT REG1 REG2 // Success if REG1 < REG2
 
 #### Binary Code
@@ -78,6 +81,7 @@ JJJ00001 00000006 RRRRRRRR RRRRRRRR // LTT REG1 REG2
 #### Grammar
 
 INT NUM * // Interrupt with reason NUM (NUM must be at most 8 bits wide)
+
 INT REG * // Interrupt with reason REG (only the low 1 byte is used)
 
 #### Binary Code
