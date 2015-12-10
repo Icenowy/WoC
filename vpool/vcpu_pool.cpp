@@ -1,6 +1,7 @@
 #include "vcpu_pool.h"
 
 #include <cstring>
+#include <cstdio>
 
 struct vcpu * vcpu_pool::add_vcpu (uint16_t pc, uint16_t sp, uint16_t int_pos, uint32_t color_acc, uint32_t color_exe) {
 	struct vcpu * vc = new struct vcpu;
@@ -24,4 +25,13 @@ void vcpu_pool::nexti () {
 	for(std::vector<struct vcpu*>::iterator i : is) {
 		pool.erase(i);
 	}
+}
+
+void vcpu_pool::core_dump (const char *path)
+{
+	FILE *fp;
+	fp = std::fopen (path, "w");
+	if (!fp) return;
+	fwrite (mem, sizeof (uint32_t), 0x10000, fp);
+	fclose (fp);
 }

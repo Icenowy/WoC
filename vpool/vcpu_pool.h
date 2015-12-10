@@ -19,5 +19,6 @@ struct vcpu_pool
 
 	struct vcpu * add_vcpu (uint16_t pc, uint16_t sp, uint16_t int_pos, uint32_t color_acc, uint32_t color_exe);
 	void nexti ();
+	void core_dump (const char *path);
 };
 #endif

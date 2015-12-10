@@ -13,6 +13,7 @@
 #include "../vpool/vcpu_pool.h"
 
 #define TITLE "WoC: SimpleWars"
+#define WOC_CORE "woc-core"
 
 uint32_t p1[0x4000], p2[0x4000];
 
@@ -159,6 +160,11 @@ int main (int argc, char **argv)
 			}
 		}
 	} while (!exit);
+
+	if (!win) {
+		pool->core_dump (WOC_CORE);
+		std::cerr << "WoC-Core dumped." << std::endl;
+	}
 
 	return 0;
 }
