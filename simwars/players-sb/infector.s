@@ -46,8 +46,13 @@ lsh	r14	r8
 add	r14	r8
 mov	r3	r14
 mov	r4	r15
-lda	r5	%54
+lda	r5	%57
 lda	r6	%7
+
+# Execution guard
+sub	r3	r1
+sta	r13	@r3
+add	r3	r1
 
 # Label 2
 lda	r2	@r4
