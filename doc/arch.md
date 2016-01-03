@@ -27,7 +27,7 @@
 
 #### Grammar
 
-NOP * * // the second and third segment is ignored
+NOP * * // the second and third segment are ignored
 
 #### Binary Code
 
