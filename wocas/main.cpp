@@ -137,13 +137,20 @@ int main()
 {
 	while(true) {
 		string s1, s2, s3;
-		cin >> s1 >> s2 >> s3;
-		if(s1 == "#") {
-			cin >> s1;
-			while (s1 != "#") {
-				cin >> s1;
-			}
-			cin >> s1 >> s2 >> s3;
+		in_s1: cin >> s1;
+		if (s1.substr (0,1) == "#") {
+			getline (cin, s1);
+			goto in_s1;
+		}
+		in_s2: cin >> s2;
+		if (s2.substr (0,1) == "#") {
+			getline (cin, s2);
+			goto in_s2;
+		}
+		in_s3: cin >> s3;
+		if (s3.substr (0,1) == "#") {
+			getline (cin, s3);
+			goto in_s3;
 		}
 		s1 = stoupper (s1);
 		s2 = stoupper (s2);
