@@ -62,7 +62,7 @@ subns	pc	r6
 
 # Infect
 lda	r3	%2
-lda	r5	%49
+lda	r5	%58
 lda	r6	%14
 lda	r7	%7
 
@@ -92,7 +92,7 @@ mov	r15	r14
 mov	pc	r15
 
 # Label 4
-lda	r5	%49
+lda	r5	%65
 lda	r6	%5
 
 # Label 5
