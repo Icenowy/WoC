@@ -5,83 +5,110 @@ Released under GPL license version 3
 #
 
 mov	r15	pc
-lda	r0	%9
-add	r15	r0
+lda	r2	%12
+add	r15	r2
 
-lda	r0	%0x8000
-ltt	r15	r0
-#
-Player 0: SU
-Player 1: NS
-#
-ldasu	r14	%0
-ldans	r14	%1
-lda	r5	%9
-lda	r9	%1
-lda	r10	%0
+# Const 0 . #
+lda	r0	%0
+# Const 1 . #
+lda	r1	%1
+# Const 8 . #
+lda	r8	%8
+# Const 9 . #
+lda	r9	%9
+# Const 10 . #
+lda	r10	%16
+# Addr 11 . #
+lda	r11	%0x8000
+ltt	r15	r11
+ldans	r11	%0x4000
+# Const 12 . #
+lda	r12	%0xe000
+# Const 13 . #
+sub	r13	r1
 
-# label 1 . #
+# label 1 .  
 
-lda	r0	%0x010b
-lda	r1	%16
-lsh	r0	r1
-lda	r1	%0x100f
-add	r0	r1
-ldasu	r1	%0xe000
-ldans	r1	%0x0000
-sta	r0	@r1
+  Protect myself . #
+lda	r2	%0x010b
+lsh	r2	r10
+lda	r3	%0x100f
+add	r2	r3
+stasu	r2	@r12
+stans	r2	@r0
 
-lda	r0	%0xffff
-lda	r1	%16
-lsh	r0	r1
-ldasu	r1	%0x0000
-ldans	r1	%0xe000
-sta	r0	@r1
+# Attack enemy . #
+stasu	r13	@r0
+stans	r13	@r12
 
-# fork . . #
-lda	r1	%0x1108
-add	r1	r15
-equ	r1	r10
-addsu	r1	r9
-lda	r0	%0xe000
-equ	r1	r0
-addsu	r1	r9
-mov	r13	r1
-mov	r11	r15
-lda	r8	%48
-
-# label 3 . #
-lda	r0	@r11
-sta	r0	@r1
-add	r1	r9
-add	r11	r9
-sub	r8	r9
-equ	r8	r10
-
-# goto label 3 #
-ldans	r0	%8
-subns	pc	r0
-
-equ	r0	r14
-ldasu	r1	%0x8000
-ldans	r1	%0x4000
-add	r1	r3
-lda	r8	%49
+# Fork . . #
+lda	r14	%0x1100
+add	r14	r15
+rsh	r14	r8
+lsh	r14	r8
+add	r14	r8
+mov	r3	r14
+mov	r4	r15
+lda	r5	%54
+lda	r6	%7
 
 # label 2 . #
-sta	r0	@r1
-add	r1	r5
-add	r3	r5
-sub	r8	r9
-equ	r8	r10
+lda	r2	@r4
+add	r4	r1
+sta	r2	@r3
+add	r3	r1
+sub	r5	r1
 
 # goto label 2 #
-ldans	r0	%7
-subns	pc	r0
-equ	r0	r14
+equ	r5	r0
+subns	pc	r6
+
+# Infect . . #
+lda	r3	%2
+lda	r5	%49
+lda	r6	%14
+lda	r7	%7
+
+# label 3 . #
+equ	r11	r0
+addsu	pc	r1
+equ	r11	r12
+addsu	r11	r1
+
+lda	r2	@r11
+# goto label 4 #
+equ	r2	r0
+addsu	pc	r3
+equ	r2	r13
+addns	pc	r7
+
+sta	r13	@r11
+add	r11	r9
+sub	r5	r1
+
+# goto label 3 #
+equ	r5	r0
+subns	pc	r6
 
 # goto label 1 #
-mov	r15	r13
+mov	r15	r14
+mov	pc	r15
+
+# label 4 . #
+lda	r5	%49
+lda	r6	%5
+
+# label 5 . #
+sta	r13	@r11
+add	r11	r1
+sub	r5	r1
+
+# goto label 5 #
+equ	r5	r0
+subns	pc	r6
+
+# goto label 1 #
+mov	r15	r14
 mov	pc	r15
 
 end	.	.
